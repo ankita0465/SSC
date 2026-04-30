@@ -1,0 +1,284 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SSC - Smart Student Community</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Montserrat:wght@700;800&amp;family=Inter:wght@400;500;600&amp;family=Poppins:wght@600&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Icons -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS (Static) -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #264dd9;
+            --secondary: #006b58;
+            --tertiary: #874e00;
+            --background: #f7f9fe;
+            --surface: #f7f9fe;
+            --on-background: #181c20;
+            --on-surface: #181c20;
+            --on-surface-variant: #444655;
+            --primary-container: #4568f3;
+            --surface-container-high: #e6e8ed;
+            --surface-container-lowest: #ffffff;
+            --surface-container-low: #f1f4f9;
+            --secondary-container: #5ffbd6;
+        }
+
+        .bg-primary {
+            background-color: var(--primary) !important;
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary) !important;
+        }
+
+        .bg-tertiary {
+            background-color: var(--tertiary) !important;
+        }
+
+        .bg-background {
+            background-color: var(--background) !important;
+        }
+
+        .bg-surface-container-high {
+            background-color: var(--surface-container-high) !important;
+        }
+
+        .bg-surface-container-lowest {
+            background-color: var(--surface-container-lowest) !important;
+        }
+
+        .bg-surface-container-low {
+            background-color: var(--surface-container-low) !important;
+        }
+
+        .bg-secondary-container {
+            background-color: var(--secondary-container) !important;
+        }
+
+        .text-primary {
+            color: var(--primary) !important;
+        }
+
+        .text-on-background {
+            color: var(--on-background) !important;
+        }
+
+        .text-on-surface-variant {
+            color: var(--on-surface-variant) !important;
+        }
+
+        .text-on-tertiary {
+            color: #ffffff !important;
+        }
+
+        .font-body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sidebar-active {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-background font-body">
+    <!-- SideNavBar Component -->
+    <aside
+        class="h-screen w-64 fixed left-0 top-0 hidden lg:flex flex-col bg-white border-r border-slate-200 py-6 px-4 z-50">
+        <div class="flex flex-col h-full py-6 px-4">
+            <!-- Header Brand -->
+            <div class="flex items-center gap-3 mb-10 px-2">
+                <img alt="SSC Logo" class="w-24 h-24 rounded-lg object-contain"
+                    src="{% static 'assets/logo4.jpeg' %}" />
+            </div>
+            <!-- Navigation Links -->
+            <nav class="flex-1 space-y-1">
+                <!-- Home (Active) -->
+
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-blue-600 font-semibold border-r-4 border-blue-600 bg-blue-50 transition-all duration-200"
+                    href="{% url 'home' %}">
+                    <span class="material-symbols-outlined sidebar-active"
+                        style="font-variation-settings: 'FILL' 1;">home</span>
+                    <span class="font-poppins text-sm">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
+                    href="{% url 'event_list' %}">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span class="font-poppins text-sm">Events</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
+                    href="{% url 'post_event' %}">
+                    <span class="material-symbols-outlined">add_box</span>
+                    <span class="font-poppins text-sm">Post Event</span>
+                </a>
+
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
+                    href="{% url 'dashboard' %}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-poppins text-sm">Dashboard</span>
+                </a>
+            </nav>
+            <!-- CTA & Footer -->
+            <div class="mt-8 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
+                    href="{% url 'login' %}">
+                    <span class="material-symbols-outlined">login</span>
+                    <span class="font-poppins text-sm">Login</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200"
+                    href="{% url 'logout' %}">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-poppins text-sm">Logout</span>
+                </a>
+            </div>
+        </div>
+        </div>
+        </div>
+    </aside>
+    <header
+        class="fixed top-0 right-0 lg:left-64 left-0 h-16 z-40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md flex items-center justify-center px-8 shadow-sm dark:shadow-none transition-all duration-300">
+        <button id="mobileMenuBtn" class="lg:hidden p-2 -ml-2 text-slate-600 absolute left-4"
+            onclick="document.querySelector('aside').classList.toggle('hidden'); document.querySelector('aside').classList.toggle('flex');">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <span class="text-xl font-bold font-montserrat tracking-tight text-slate-900">Smart Student Community</span>
+        <div class="absolute right-8 flex items-center space-x-2">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyfaDwDDMAlk_zIRGOglVNKa_LFBAhfSGl6IP-TH4sNIFiynMlFz3nr3lRsekGetAu_WykZORRDDwt39LD1z4kIRKflxy4NjgzfVFXYlmwV7SebwIgP_caw1pQijS4MIVIzZugCuvujG0Eu889tWF26W27Q6RurlTzJ6DfA3Ws6Ml8k03raNtMPloZ3oJjmjOAy1LUf2f3cCEaJGFn9HQSoUHqJLETkcs7MnP1ag6zewHZ-MeB6PRuLaW_0ICmaJ94i6RBIAgi40t"
+                class="w-8 h-8 rounded-full border border-slate-200 shadow-sm object-cover" alt="Avatar" />
+            <span class="text-sm font-bold text-slate-900 hidden md:block">
+                {% if student %}{{ student.name }}{% endif %}
+            </span>
+        </div>
+    </header>
+    <!-- Main Content Canvas -->
+    <main class="lg:ml-64 ml-0 pt-24 pb-12 px-8 min-h-screen">
+        <!-- Hero Section -->
+
+        <div id="globalAnnouncementBanner"
+            class="w-full bg-tertiary text-white shadow-md mb-6 rounded-2xl overflow-hidden relative">
+            <div class="px-5 py-3 flex items-center justify-between">
+                <div
+                    class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center animate-pulse flex-shrink-0">
+                    <span class="material-symbols-outlined text-white">campaign</span>
+                </div>
+                <div class="flex-1 ml-4">
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-white/70"></h4>
+                    <p class="font-bold text-sm md:text-base">Welcome to the new static version of SSC! Explore Events.
+                    </p>
+                </div>
+                <button class="hover:bg-white/10 p-2 rounded-xl transition-all">
+                    <span class="material-symbols-outlined text-white">close</span>
+                </button>
+            </div>
+        </div>
+        <section
+            class="relative overflow-hidden rounded-[2.5rem] bg-slate-900 mb-10 border border-white/10 group shadow-2xl">
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover opacity-80 transition-transform duration-1000 group-hover:scale-105"
+                    src="{% static 'assets/bgpic.png' %}" />
+                <div class="absolute inset-0"
+                    style="background: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.4));"></div>
+            </div>
+            <div class="relative z-10 p-12 lg:p-16 flex flex-col justify-end min-h-[400px]">
+                <span
+                    class="text-blue-400/90 text-sm font-bold uppercase tracking-[0.3em] mb-4 Montserrat drop-shadow-sm"></span>
+                <h1 class="text-4xl lg:text-5xl font-extrabold text-white mb-4 Montserrat leading-tight max-w-2xl"
+                    style="text-shadow: 0px 4px 15px rgba(0,0,0,0.6);">
+                    Empowering the Future of <span class="text-blue-400">Smart Students</span>
+                </h1>
+                <p class="text-base lg:text-lg text-slate-200 mb-8 max-w-xl font-poppins leading-relaxed"
+                    style="text-shadow: 0px 2px 8px rgba(0,0,0,0.8);">
+                    Grow with a community of ambitious 21st-century learners.
+                </p>
+            </div>
+        </section>
+        <!-- Bento Grid Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+            <!-- Featured Events (Large Card) -->
+            <section class="md:col-span-12 bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow group">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-2xl font-bold font-montserrat text-slate-900 mb-1">Featured Events</h2>
+                        <p class="text-on-surface-variant text-sm font-opensans">Unlock Events Around You</p>
+                    </div>
+                    <a href="{% url 'event_list' %}"
+                        class="text-blue-600 font-semibold text-sm flex items-center gap-1 hover:underline">
+                        View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <div id="featured-events-container" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Static Event Item 1 -->
+                    <div
+                        class="relative h-64 rounded-2xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800"
+                            class="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
+                            alt="Global Tech Summit">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span
+                                class="bg-blue-600 text-[10px] text-white px-2 py-1 rounded-md uppercase font-bold tracking-wider mb-2 inline-block">Workshop</span>
+                            <h3 class="text-white font-poppins font-bold text-lg leading-tight">Global Tech Summit 2026
+                            </h3>
+                            <div class="flex items-center gap-3 mt-2 text-white/70 text-xs">
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-xs">calendar_today</span> March 25, 10:00
+                                    AM</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-xs">location_on</span> Online</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Static Event Item 2 - Cricket -->
+                    <div
+                        class="relative h-64 rounded-2xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+                        <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=800"
+                            class="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
+                            alt="Cricket Championship">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 right-4">
+                            <span
+                                class="bg-green-600 text-[10px] text-white px-2 py-1 rounded-md uppercase font-bold tracking-wider mb-2 inline-block">Sports</span>
+                            <h3 class="text-white font-poppins font-bold text-lg leading-tight">Inter-College Cricket
+                                Championship 2026</h3>
+                            <div class="flex items-center gap-3 mt-2 text-white/70 text-xs">
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-xs">calendar_today</span> April 10, 9:00
+                                    AM</span>
+                                <span class="flex items-center gap-1"><span
+                                        class="material-symbols-outlined text-xs">location_on</span> University
+                                    Ground</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+    </main>
+</body>
+
+</html>

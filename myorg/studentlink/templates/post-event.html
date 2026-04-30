@@ -1,0 +1,270 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post Event - SSC</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;family=Poppins:wght@600&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#264dd9",
+                    "primary-container": "#4568f3",
+                    "surface": "#f7f9fe",
+                    "background": "#f5f7fb",
+                    "surface-container-low": "#f1f4f9",
+                    "surface-container-highest": "#e0e2e7",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#181c20",
+                    "on-surface-variant": "#444655",
+                    "outline-variant": "#c4c5d7",
+                    "secondary": "#006b58",
+                    "tertiary": "#874e00"
+                },
+                fontFamily: {
+                    "body": ["Inter", "sans-serif"],
+                    "montserrat": ["Montserrat", "sans-serif"],
+                    "poppins": ["Poppins", "sans-serif"],
+                    "opensans": ["Open Sans", "sans-serif"]
+                }
+            }
+        }
+    }
+</script>
+<style>
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+</style>
+</head>
+<body class="bg-background text-on-surface font-body">
+
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-white border-r border-slate-200 z-50">
+    <div class="flex flex-col h-full py-6 px-4">
+        <div class="flex items-center gap-3 px-2 mb-10">
+            <img alt="SSC Logo" class="w-24 h-24 rounded-lg object-contain" src="{% static 'assets/logo4.jpeg' %}"/>
+        </div>
+        <nav class="flex-1 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'home' %}">
+                <span class="material-symbols-outlined">home</span>
+                <span class="font-poppins text-sm">Home</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'event_list' %}">
+                <span class="material-symbols-outlined">calendar_month</span>
+                <span class="font-poppins text-sm">Events</span>
+            </a>
+            <!-- Active Item: Post Event -->
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-blue-600 font-semibold border-r-4 border-blue-600 bg-blue-50 transition-all duration-200" href="{% url 'post_event' %}">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_box</span>
+                <span class="font-poppins text-sm">Post Event</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'dashboard' %}">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-poppins text-sm">Dashboard</span>
+            </a>
+        </nav>
+        <div class="mt-8 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'login' %}">
+                <span class="material-symbols-outlined">login</span>
+                <span class="font-poppins text-sm">Login</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'logout' %}">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-poppins text-sm">Logout</span>
+            </a>
+        </div>
+    </div>
+</aside>
+
+<header class="fixed top-0 right-0 lg:left-64 left-0 h-16 z-40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md flex items-center justify-center px-8 shadow-sm dark:shadow-none transition-all duration-300">
+    <button id="mobileMenuBtn" class="lg:hidden p-2 -ml-2 text-slate-600 absolute left-4" onclick="document.querySelector('aside').classList.toggle('hidden'); document.querySelector('aside').classList.toggle('flex');">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+    <span class="text-xl font-bold font-montserrat tracking-tight text-slate-900">Smart Student Community</span>
+    <div class="absolute right-8 flex items-center space-x-2">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyfaDwDDMAlk_zIRGOglVNKa_LFBAhfSGl6IP-TH4sNIFiynMlFz3nr3lRsekGetAu_WykZORRDDwt39LD1z4kIRKflxy4NjgzfVFXYlmwV7SebwIgP_caw1pQijS4MIVIzZugCuvujG0Eu889tWF26W27Q6RurlTzJ6DfA3Ws6Ml8k03raNtMPloZ3oJjmjOAy1LUf2f3cCEaJGFn9HQSoUHqJLETkcs7MnP1ag6zewHZ-MeB6PRuLaW_0ICmaJ94i6RBIAgi40t" class="w-8 h-8 rounded-full border border-slate-200 shadow-sm object-cover" alt="Avatar" />
+        <span class="text-sm font-bold text-slate-900 hidden md:block">
+            {{ student.name|truncatewords:1|cut:"..." }}
+        </span>
+    </div>
+</header>
+
+<main class="lg:ml-64 pt-24 pb-12 px-4 md:px-8 min-h-screen">
+    {% if messages %}
+    <div class="max-w-7xl mx-auto mb-6">
+        {% for message in messages %}
+        <div class="p-4 rounded-xl {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-rose-100 text-rose-700{% endif %} font-semibold text-sm shadow-sm flex items-center gap-2">
+            <span class="material-symbols-outlined">{% if message.tags == 'success' %}check_circle{% else %}error{% endif %}</span>
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="max-w-7xl mx-auto space-y-8">
+        
+        <!-- Hero Banner -->
+        <div class="relative bg-slate-900 rounded-[2.5rem] shadow-xl overflow-hidden min-h-[220px] flex items-center group">
+            <!-- Background Image Layer -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=1600" class="w-full h-full object-cover opacity-40 transition-transform duration-1000 group-hover:scale-105" alt="Event Background">
+                <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 w-full p-8 md:p-12 flex flex-col md:flex-row items-center justify-between text-white">
+                <div class="space-y-1.5 text-center md:text-left">
+                    <h1 class="text-3xl md:text-4xl font-black font-montserrat tracking-tight leading-tight">Create & Share <br class="hidden md:block">Your Event</h1>
+                    <p class="opacity-90 font-medium font-opensans text-sm md:text-base">Impact thousands of students & grow your community</p>
+                </div>
+                <a href="{% url 'event_list' %}" class="mt-6 md:mt-0 bg-white text-primary px-10 py-4 rounded-full font-bold font-poppins text-sm hover:scale-105 transition-transform shadow-2xl flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">visibility</span> View Events
+                </a>
+            </div>
+        </div>
+
+        <!-- Form Wrapper -->
+        <div class="flex justify-center">
+            
+            <!-- Form Container -->
+            <div class="w-full max-w-4xl bg-surface-container-lowest rounded-[2rem] p-8 lg:p-10 shadow-sm border border-outline-variant/20">
+                                <form id="postEventForm" class="space-y-8" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="space-y-5">
+                        <h3 class="font-poppins font-bold text-lg border-b border-outline-variant/20 pb-3 flex items-center gap-2 text-slate-800">
+                            <span class="material-symbols-outlined text-primary text-[20px]">info</span> Basic Details
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Event Title</label>
+                                <input id="evTitle" name="title" type="text" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" placeholder="e.g. AI Hackathon 2026" required/>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Category</label>
+                                <select id="evCategory" name="category" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm">
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Hackathon">Hackathon</option>
+                                    <option value="Fest">Fest</option>
+                                    <option value="Seminar">Seminar</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Event Mode</label>
+                                <select id="evMode" name="mode" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm">
+                                    <option value="Online">Online</option>
+                                    <option value="Offline">Offline</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <h3 class="font-poppins font-bold text-lg border-b border-outline-variant/20 pb-3 flex items-center gap-2 text-slate-800">
+                            <span class="material-symbols-outlined text-primary text-[20px]">event</span> Event Info
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Date</label>
+                                <input id="evDate" name="event_date" type="date" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" required/>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Time</label>
+                                <input id="evTime" name="event_time" type="time" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" required/>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Location / Link</label>
+                                <input id="evLocation" name="location" type="text" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" placeholder="e.g. Main Auditorium or Zoom Link" required/>
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Registration Deadline</label>
+                                <input id="evDeadline" name="deadline" type="date" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" required/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <h3 class="font-poppins font-bold text-lg border-b border-outline-variant/20 pb-3 flex items-center gap-2 text-slate-800">
+                            <span class="material-symbols-outlined text-primary text-[20px]">image</span> Media &amp; Description
+                        </h3>
+                        <div>
+                            <p class="text-[10px] text-slate-500 font-bold uppercase mb-1">Upload Event Banner (Image File)</p>
+                            <input id="evImage" name="image" type="file" accept="image/*" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm" required/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 mb-1.5 uppercase tracking-wider flex justify-between">
+                                <span>Description</span>
+                                <span id="charCount" class="text-slate-400 font-normal">0/500</span>
+                            </label>
+                            <textarea id="evDesc" name="description" rows="4" class="w-full bg-surface-container-low border border-outline-variant/10 rounded-xl px-4 py-3.5 text-sm focus:ring-2 focus:ring-primary focus:border-primary transition-all shadow-sm resize-none" placeholder="What is this event about?" maxlength="500" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-6 border-t border-outline-variant/20">
+                        <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-full font-bold font-poppins text-sm text-white bg-gradient-to-r from-primary to-primary-container hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-1"><span class="material-symbols-outlined text-[16px]">rocket_launch</span> Publish Event</button>
+                    </div>
+                </form>
+            </div>
+
+            
+
+</main>
+<script>
+    // Live Preview Logic
+    const inputs = ['evTitle', 'evCategory', 'evDate', 'evTime', 'evLocation', 'evImage', 'evDesc'];
+    const pDict = {
+        'evTitle': { el: 'prevTitle', def: 'Event Title' },
+        'evCategory': { el: 'prevTag', def: 'Workshop' },
+        'evDate': { el: 'prevDate', def: 'Date' },
+        'evTime': { el: 'prevTime', def: 'Time' },
+        'evLocation': { el: 'prevLocation', def: 'Location' },
+        'evImage': { el: 'prevImg', def: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800' },
+        'evDesc': { el: 'prevDesc', def: 'Event description will appear here as you type. Make it catchy and engaging for students!' }
+    };
+
+    function updatePreview() {
+        inputs.forEach(id => {
+            const node = document.getElementById(id);
+            if(!node) return;
+            const val = node.value.trim();
+            const target = document.getElementById(pDict[id].el);
+            
+            if (id === 'evImage') {
+                if (node.files && node.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) { target.src = e.target.result; };
+                    reader.readAsDataURL(node.files[0]);
+                } else {
+                    target.src = pDict[id].def;
+                }
+            } else if (id === 'evDate') {
+                target.innerText = val ? new Date(val).toLocaleDateString('en-US', {month: 'short', day: 'numeric'}) : pDict[id].def;
+            } else {
+                target.innerText = val || pDict[id].def;
+            }
+        });
+    }
+
+    inputs.forEach(id => {
+        const node = document.getElementById(id);
+        if(node) node.addEventListener('input', updatePreview);
+    });
+
+    // Navigation Logic
+    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+        const aside = document.querySelector('aside');
+        aside.classList.toggle('hidden');
+        aside.classList.toggle('flex');
+    });
+
+    // Character Counter
+    document.getElementById('evDesc').addEventListener('input', function() {
+        document.getElementById('charCount').innerText = `${this.value.length}/500`;
+    });
+
+    document.addEventListener('DOMContentLoaded', updatePreview);
+</script>
+</body></html>

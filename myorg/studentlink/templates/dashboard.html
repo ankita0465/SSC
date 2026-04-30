@@ -1,0 +1,470 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SSC Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Montserrat:wght@700;800&amp;family=Poppins:wght@500;600&amp;family=Inter:wght@400;500;600&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#002019",
+              "inverse-surface": "#2d3135",
+              "tertiary": "#874e00",
+              "error": "#ba1a1a",
+              "primary-fixed": "#dde1ff",
+              "on-error": "#ffffff",
+              "primary-fixed-dim": "#b8c3ff",
+              "surface-bright": "#f7f9fe",
+              "on-primary-container": "#fffbff",
+              "on-primary-fixed": "#001355",
+              "tertiary-container": "#aa6400",
+              "secondary-fixed-dim": "#38debb",
+              "secondary-fixed": "#5ffbd6",
+              "secondary-container": "#5ffbd6",
+              "on-surface": "#181c20",
+              "surface-container-highest": "#e0e2e7",
+              "on-tertiary-fixed-variant": "#693c00",
+              "on-primary-fixed-variant": "#0035bd",
+              "on-primary": "#ffffff",
+              "tertiary-fixed": "#ffdcbe",
+              "surface-container-high": "#e6e8ed",
+              "inverse-on-surface": "#eff1f6",
+              "tertiary-fixed-dim": "#ffb870",
+              "surface-container-lowest": "#ffffff",
+              "on-background": "#181c20",
+              "surface-variant": "#e0e2e7",
+              "outline-variant": "#c4c5d7",
+              "surface": "#f7f9fe",
+              "on-secondary-container": "#00725e",
+              "on-error-container": "#93000a",
+              "surface-tint": "#294fdb",
+              "inverse-primary": "#b8c3ff",
+              "primary-container": "#4568f3",
+              "background": "#f7f9fe",
+              "primary": "#264dd9",
+              "on-surface-variant": "#444655",
+              "on-secondary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "montserrat": ["Montserrat"],
+              "poppins": ["Poppins"],
+              "opensans": ["Open Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fe;
+        }
+        .academic-gradient {
+            background: linear-gradient(135deg, #264dd9 0%, #4568f3 100%);
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 hidden lg:flex flex-col bg-white border-r border-slate-200 py-6 px-4 z-50">
+<div class="flex flex-col h-full">
+<div class="flex items-center gap-3 mb-10 px-2">
+<img alt="SSC Logo" class="w-24 h-24 rounded-lg object-contain" src="{% static 'assets/logo4.jpeg' %}"/>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'home' %}">
+<span class="material-symbols-outlined">home</span>
+<span class="font-poppins text-sm">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'event_list' %}">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-poppins text-sm">Events</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'post_event' %}">
+<span class="material-symbols-outlined">add_box</span>
+<span class="font-poppins text-sm">Post Event</span>
+</a>
+<!-- Active State: Dashboard -->
+<a class="flex items-center gap-3 px-3 py-3 rounded-xl text-blue-600 font-semibold border-r-4 border-blue-600 bg-blue-50 transition-all duration-200" href="{% url 'dashboard' %}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-poppins text-sm">Dashboard</span>
+</a>
+</nav>
+<div class="mt-8 space-y-1">
+    <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'login' %}">
+        <span class="material-symbols-outlined">login</span>
+        <span class="font-poppins text-sm">Login</span>
+    </a>
+    <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'logout' %}">
+        <span class="material-symbols-outlined">logout</span>
+        <span class="font-poppins text-sm">Logout</span>
+    </a>
+</div>
+</div>
+</aside>
+<header class="fixed top-0 right-0 lg:left-64 left-0 h-16 z-40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md flex items-center justify-center px-8 shadow-sm dark:shadow-none">
+    <button class="lg:hidden p-2 -ml-2 text-slate-600 absolute left-4" onclick="document.querySelector('aside').classList.toggle('hidden'); document.querySelector('aside').classList.toggle('flex');">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+    <span class="text-xl font-bold font-montserrat tracking-tight text-slate-900">Smart Student Community</span>
+    <div class="absolute right-8 flex items-center space-x-2">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyfaDwDDMAlk_zIRGOglVNKa_LFBAhfSGl6IP-TH4sNIFiynMlFz3nr3lRsekGetAu_WykZORRDDwt39LD1z4kIRKflxy4NjgzfVFXYlmwV7SebwIgP_caw1pQijS4MIVIzZugCuvujG0Eu889tWF26W27Q6RurlTzJ6DfA3Ws6Ml8k03raNtMPloZ3oJjmjOAy1LUf2f3cCEaJGFn9HQSoUHqJLETkcs7MnP1ag6zewHZ-MeB6PRuLaW_0ICmaJ94i6RBIAgi40t" class="w-8 h-8 rounded-full border border-slate-200 shadow-sm object-cover" alt="Avatar" />
+        <span class="text-sm font-bold text-slate-900 hidden md:block">
+            {{ student.name|default:"Ankita" }}
+        </span>
+    </div>
+
+</header>
+<!-- Page Canvas -->
+<main class="lg:ml-64 pt-24 pb-12 px-6 lg:px-10">
+
+{% if messages %}
+<div class="mb-8 space-y-2">
+    {% for message in messages %}
+    <div class="p-4 rounded-xl text-sm font-medium {% if message.tags == 'error' %}bg-rose-50 text-rose-600 border border-rose-100{% else %}bg-teal-50 text-teal-600 border border-teal-100{% endif %} flex items-center gap-2">
+        <span class="material-symbols-outlined">{% if message.tags == 'error' %}error{% else %}check_circle{% endif %}</span>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Hero Stats Bento Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+<!-- Stat Card 1 -->
+<div class="bg-white rounded-[1.5rem] p-6 transition-all border border-slate-100 hover:shadow-2xl hover:shadow-primary/5 group cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-4 rounded-2xl bg-primary/10 text-primary border border-primary/20">
+<span class="material-symbols-outlined text-3xl">calendar_month</span>
+</div>
+<span class="text-secondary text-sm font-bold bg-secondary-container px-3 py-1.5 rounded-full">+12%</span>
+</div>
+<h3 class="text-slate-500 text-base font-medium font-poppins">Total Events Joined</h3>
+<p id="stat-total-events" class="text-4xl font-bold mt-2 text-slate-900">{{ registrations.count }}</p>
+</div>
+<!-- Stat Card 2 -->
+<div class="bg-white rounded-[1.5rem] p-6 transition-all border border-slate-100 hover:shadow-2xl hover:shadow-secondary/5 group cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-4 rounded-2xl bg-secondary-container text-on-secondary-container border border-secondary/20">
+<span class="material-symbols-outlined text-3xl">verified_user</span>
+</div>
+<span class="text-secondary text-sm font-bold bg-secondary-container px-3 py-1.5 rounded-full">85%</span>
+</div>
+<h3 class="text-slate-500 text-base font-medium font-poppins">Profile Completeness</h3>
+<p id="stat-completeness" class="text-4xl font-bold mt-2 text-slate-900">Level 1</p>
+</div>
+<!-- Stat Card 3 -->
+<div class="bg-white rounded-[1.5rem] p-6 transition-all border border-slate-100 hover:shadow-2xl hover:shadow-tertiary/5 group cursor-default">
+<div class="flex justify-between items-start mb-4">
+<div class="p-4 rounded-2xl bg-tertiary-fixed text-on-tertiary-fixed-variant border border-tertiary/20">
+<span class="material-symbols-outlined text-3xl">military_tech</span>
+</div>
+<span class="text-tertiary text-sm font-bold bg-tertiary-fixed px-3 py-1.5 rounded-full">Top 5%</span>
+</div>
+<h3 class="text-slate-500 text-base font-medium font-poppins">Global Community Rank</h3>
+<p id="stat-rank" class="text-4xl font-bold mt-2 text-slate-900">#---</p>
+</div>
+</div>
+<!-- Main Dashboard Layout Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
+    
+    <!-- Zone 1: Identity & Community -->
+    <div class="space-y-6">
+        <!-- Academic Profile Card -->
+        <div class="bg-white rounded-[1.5rem] p-6 shadow-sm border border-slate-100">
+            <div class="flex flex-col items-center text-center">
+                <div class="relative w-24 h-24 mb-4">
+                    <svg class="w-full h-full transform -rotate-90">
+                        <circle class="text-slate-100" cx="48" cy="48" fill="transparent" r="44" stroke="currentColor" stroke-width="6"></circle>
+                        <circle cx="48" cy="48" fill="transparent" r="44" stroke="url(#sidebarGradient)" stroke-dasharray="276" stroke-dashoffset="69" stroke-linecap="round" stroke-width="6"></circle>
+                        <defs>
+                            <linearGradient id="sidebarGradient" x1="0%" x2="100%" y1="0%" y2="0%">
+                                <stop offset="0%" stop-color="#264dd9"></stop>
+                                <stop offset="100%" stop-color="#006b58"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <img class="w-24 h-24 rounded-full object-cover p-1" data-alt="Student profile headshot portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyfaDwDDMAlk_zIRGOglVNKa_LFBAhfSGl6IP-TH4sNIFiynMlFz3nr3lRsekGetAu_WykZORRDDwt39LD1z4kIRKflxy4NjgzfVFXYlmwV7SebwIgP_caw1pQijS4MIVIzZugCuvujG0Eu889tWF26W27Q6RurlTzJ6DfA3Ws6Ml8k03raNtMPloZ3oJjmjOAy1LUf2f3cCEaJGFn9HQSoUHqJLETkcs7MnP1ag6zewHZ-MeB6PRuLaW_0ICmaJ94i6RBIAgi40t"/>
+                    </div>
+                </div>
+                <h3 id="profile-name" class="text-lg font-bold text-slate-900 font-montserrat tracking-tight">{{ student.name|default:"Ankita" }}</h3>
+                <p id="profile-bio" class="text-xs font-bold text-primary uppercase tracking-wider mt-1">Active Event Member</p>
+                <div class="mt-6 grid grid-cols-2 gap-3 w-full">
+                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100">
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-0.5"></p>
+                        <p class="text-xs font-bold text-slate-900"></p>
+                    </div>
+                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100">
+                        <p class="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-0.5"></p>
+                        <p class="text-xs font-bold text-slate-900"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Hub Card -->
+        <div class="bg-white rounded-[1.5rem] p-6 border border-white transition-all">
+            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">forum</span>
+                Event Activity
+            </h4>
+            <div id="activity-container" class="space-y-4 relative">
+                <div class="absolute left-1.5 top-0 bottom-0 w-0.5 bg-slate-200"></div>
+                <!-- Dynamic Activity Items -->
+                <p class="text-[10px] text-slate-400 text-center py-4">No recent activity</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zone 2-3: Growth & Interaction -->
+    <div class="md:col-span-1 xl:col-span-2 space-y-6">
+        <!-- Skill Progress Chart Card -->
+        <div class="bg-white border border-slate-100 rounded-[1.5rem] p-6 shadow-sm">
+            <!-- (Previously Skill Progress Chart Code) -->
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900 Montserrat">Skill Progress</h2>
+                    <p class="text-sm text-slate-500 mt-0.5 font-opensans">Growth trajectory over the last semester</p>
+                </div>
+                <div class="flex gap-3">
+                    <span class="flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-primary shadow-lg shadow-primary/20"></span> Tech
+                    </span>
+                    <span class="flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-secondary shadow-lg shadow-secondary/20"></span> Lead
+                    </span>
+                </div>
+            </div>
+            <div class="h-44 flex items-end justify-between gap-4 px-2 border-b border-slate-100 pb-1">
+                <div class="w-full flex flex-col items-center gap-4 group">
+                    <div class="w-full space-y-1 flex flex-col items-end justify-end h-full">
+                        <div class="w-6 bg-primary/20 rounded-t-lg h-12 group-hover:bg-primary/30 transition-all"></div>
+                        <div class="w-6 bg-secondary/20 rounded-t-lg h-8 group-hover:bg-secondary/30 transition-all"></div>
+                    </div>
+                    <span class="text-[9px] text-slate-400 font-bold tracking-widest">SEP</span>
+                </div>
+                <div class="w-full flex flex-col items-center gap-4 group">
+                    <div class="w-full space-y-1 flex flex-col items-end justify-end h-full">
+                        <div class="w-6 bg-primary/20 rounded-t-lg h-20 group-hover:bg-primary/30 transition-all"></div>
+                        <div class="w-6 bg-secondary/20 rounded-t-lg h-12 group-hover:bg-secondary/30 transition-all"></div>
+                    </div>
+                    <span class="text-[9px] text-slate-400 font-bold tracking-widest">OCT</span>
+                </div>
+                <div class="w-full flex flex-col items-center gap-4 group origin-bottom">
+                    <div class="w-full space-y-1 flex flex-col items-end justify-end h-full">
+                        <div class="w-6 bg-primary rounded-t-lg h-32 shadow-lg shadow-primary/20 border-b-2 border-primary-fixed"></div>
+                        <div class="w-6 bg-secondary rounded-t-lg h-16 shadow-lg shadow-secondary/20 border-b-2 border-secondary-fixed"></div>
+                    </div>
+                    <span class="text-xs text-slate-900 font-black tracking-widest">NOV</span>
+                </div>
+                <div class="w-full flex flex-col items-center gap-4 group">
+                    <div class="w-full space-y-1 flex flex-col items-end justify-end h-full">
+                        <div class="w-6 bg-primary/10 rounded-t-lg h-24 border-2 border-dashed border-primary/20"></div>
+                        <div class="w-6 bg-secondary/10 rounded-t-lg h-12 border-2 border-dashed border-secondary/20"></div>
+                    </div>
+                    <span class="text-[9px] text-slate-400 font-bold tracking-widest">DEC</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registered Events Highlights -->
+        <div class="bg-white rounded-[1.5rem] p-6 border border-slate-100 shadow-sm">
+            <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">event_available</span>
+                Registered Events
+            </h4>
+            <div id="registered-events-highlights" class="space-y-4">
+                {% if registrations %}
+                    {% for reg in registrations %}
+                    <div class="flex items-center justify-between p-3 bg-slate-50 border border-slate-100 rounded-xl hover:bg-slate-100 transition-colors">
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">{{ reg.event.title }}</p>
+                            <p class="text-[10px] text-slate-500">{{ reg.event.start_date|default:"TBA" }} • {{ reg.event.city }}</p>
+                        </div>
+                        <a href="{% url 'event_feedback' reg.event.event_id %}" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-bold text-primary hover:bg-primary hover:text-white transition-colors">
+                            Feedback
+                        </a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-[10px] text-slate-400 text-center py-4 italic">No active registrations</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Admin Console (Bottom Center) -->
+        <div class="admin-only bg-white p-6 rounded-[1.5rem] border border-slate-100 shadow-sm" style="display:none;">
+            <h4 class="font-bold text-slate-900 text-lg mb-6 flex items-center gap-2 font-montserrat">
+                <span class="material-symbols-outlined text-primary text-3xl">database</span>
+                Admin Console
+            </h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-sm font-bold text-slate-500 mb-4 uppercase tracking-widest items-center flex gap-2">
+                        <span class="material-symbols-outlined text-base">download</span> Data Management
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <button onclick="downloadCSV('ssc_feedback', 'feedback_data.csv')" class="px-5 py-3 bg-slate-50 text-slate-700 text-xs font-bold rounded-xl border border-slate-100 hover:bg-primary hover:text-white transition-all">Feedback</button>
+                        <button onclick="downloadCSV('ssc_events', 'event_registrations.csv')" class="px-5 py-3 bg-slate-50 text-slate-700 text-xs font-bold rounded-xl border border-slate-100 hover:bg-primary hover:text-white transition-all">Events</button>
+            
+                    </div>
+                </div>
+                
+                <div>
+                    <p class="text-sm font-bold text-slate-500 mb-4 uppercase tracking-widest items-center flex gap-2">
+                        <span class="material-symbols-outlined text-base">campaign</span> Global Broadcast
+                    </p>
+                    <form id="announcementForm" class="flex flex-col gap-3" method="POST" action="#">
+                        <input type="text" id="announceMsg" class="flex-1 bg-slate-50 border-none rounded-xl py-3 px-5 text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-slate-400" placeholder="Urgent announcement for all users..." required>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-primary text-white px-8 py-3 rounded-xl font-bold font-poppins shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">Broadcast Now</button>
+                            <button type="button" onclick="clearAnnouncement()" class="text-xs font-bold text-rose-500 hover:underline">Clear Active</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zone 4: Action Center -->
+    <div class="space-y-6">
+        <!-- Event Shortcut Card -->
+        <div class="bg-white p-6 rounded-[1.5rem] shadow-sm border border-slate-100 transitions-all hover:shadow-xl">
+            <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-2 text-base font-montserrat">
+                <span class="material-symbols-outlined text-primary text-xl">event_upcoming</span>
+                Next Event
+            </h4>
+            <div id="next-event-container" class="flex flex-col gap-4">
+                <div>
+                    <p class="font-bold text-slate-900 text-sm leading-tight" id="next-event-title">No upcoming events</p>
+                    <p class="text-[10px] text-slate-500 mt-1" id="next-event-time">Register for workshops to see them here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Match Card -->
+    <a href="{% url 'event_list' %}" class="block">
+    <div class="bg-white p-6 rounded-[1.5rem] shadow-sm border border-slate-100 transition-all hover:shadow-xl cursor-pointer">
+
+        <h3 class="text-lg font-bold text-slate-900">Explore Events</h3>
+        <p class="text-sm text-slate-500 mt-2">Click to view all events</p>
+    </div>
+</a>
+
+            <h4 class="font-bold text-slate-900 mb-4 flex items-center gap-2 text-base font-montserrat">
+                <span class="material-symbols-outlined text-secondary text-xl">assignment</span>
+                Event Match
+            </h4>
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-50 flex-shrink-0 border border-slate-100">
+                    <img class="w-full h-full object-cover" alt="Event" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800" onerror="this.src='https:images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=800'"/>
+                </div>
+                <div class="flex-1">
+                    <p class="font-bold text-slate-900 text-xs">UX Design Workshop</p>
+                    <p class="text-[10px] text-slate-500">Design Studio</p>
+                    <span class="mt-2 inline-block px-2 py-0.5 rounded-full bg-secondary/10 text-[9px] font-bold text-secondary uppercase tracking-wider">Today</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</div>
+
+<script>
+function downloadCSV(storageKey, filename) {
+    const data = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    if (data.length === 0) { 
+        alert('No data available in ' + storageKey); 
+        return; 
+    }
+    const keys = Object.keys(data[0]);
+    const csvRows = [keys.join(',')];
+    for (const row of data) {
+        csvRows.push(keys.map(k => `"${(row[k] || '').toString().replace(/"/g, '""')}"`).join(','));
+    }
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+}
+</script>
+<script>
+// Dashboard Real-Time Data Sync
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+       
+        // 6. Community Activity (Mocked for Event Focus)
+        const activityContainer = document.getElementById('activity-container');
+        const defaultDiscussions = [
+            { text: "Workshop: \"Modern Web Tech 2024\"", subtext: "#Workshop #WebDev • Topics to cover?", time: "Recent", icon: "🌐", status: "Upcoming", color: "primary" },
+            { text: "Fest: \"Annual Global Cultural Fest\"", subtext: "#Fest #Cultural • Volunteers needed!", time: "Recent", icon: "🎉", status: "Upcoming", color: "secondary" },
+            { text: "Bootcamp: \"AI & ML Masterclass\"", subtext: "#AI #ML • Study group forming...", time: "Yesterday", icon: "🧠", status: "Completed", color: "tertiary" }
+        ];
+
+        const combined = [
+            ...events.map(e => ({ text: `Registered for ${e.title || 'New Event'}`, subtext: "Confirmed participation", time: 'Just now', icon: '📅', status: 'Upcoming', color: 'primary' })),
+            ...posts.map(p => ({ text: `Event Topic: "${p.title || 'Community Topic'}"`, subtext: p.category || "General", time: 'Recent', icon: '💬', status: 'Active', color: 'secondary' }))
+        ];
+
+        // Merge defaults if no real data
+        const finalActivity = combined.length > 0 ? combined.slice(0, 4) : defaultDiscussions;
+
+        if (finalActivity.length > 0) {
+            activityContainer.innerHTML = '<div class="absolute left-1.5 top-0 bottom-0 w-0.5 bg-slate-200"></div>';
+            finalActivity.forEach(item => {
+                const badgeColor = item.status === 'Completed' ? 'bg-slate-100 text-slate-500' : 'bg-primary/10 text-primary';
+                activityContainer.innerHTML += `
+                    <div class="flex gap-4 relative z-10 bg-slate-50/50 py-3 hover:bg-slate-100/90 transition-all rounded-2xl px-3 group cursor-pointer border border-transparent hover:border-slate-100">
+                        <div class="mt-1 shrink-0">
+                            <div class="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-lg ring-1 ring-slate-100 group-hover:scale-110 transition-transform">${item.icon}</div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-1">
+                                <p class="text-[11px] font-bold text-slate-900 group-hover:text-primary transition-colors">${item.text}</p>
+                                <span class="text-[8px] font-bold px-2 py-0.5 rounded-full ${badgeColor} uppercase tracking-tighter">${item.status || 'Recent'}</span>
+                            </div>
+                            <p class="text-[10px] text-slate-500 line-clamp-1">${item.subtext}</p>
+                            <p class="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-tighter">${item.time}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+    } catch(e) { console.error('Error loading profile:', e); }
+});
+</script>
+
+<script>
+const events = [];
+const posts = [];
+</script>
+</body>
+</html>

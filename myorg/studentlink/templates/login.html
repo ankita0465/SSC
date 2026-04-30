@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Login - SSC</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&family=Plus+Jakarta+Sans:wght@700;800&family=Poppins:wght@600&family=Open+Sans:wght@400;600&display=swap"
+            rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+            rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+        <style>
+            :root {
+                --primary: #264dd9;
+                --surface: #f7f9fe;
+                --surface-container-high: #e6e8ed;
+                --on-surface: #181c20;
+                --on-surface-variant: #444655;
+            }
+
+            .bg-primary {
+                background-color: var(--primary) !important;
+            }
+
+            .bg-surface {
+                background-color: var(--surface) !important;
+            }
+
+            .bg-surface-container-high {
+                background-color: var(--surface-container-high) !important;
+            }
+
+            .text-on-surface {
+                color: var(--on-surface) !important;
+            }
+
+            .text-on-surface-variant {
+                color: var(--on-surface-variant) !important;
+            }
+
+            .text-primary {
+                color: var(--primary) !important;
+            }
+
+            .font-body {
+                font-family: 'Inter', sans-serif;
+            }
+
+            .font-montserrat {
+                font-family: 'Montserrat', sans-serif;
+            }
+
+            .font-poppins {
+                font-family: 'Poppins', sans-serif;
+            }
+
+            /* Smooth transitions for buttons */
+            button {
+                transition: all 0.3s;
+            }
+
+            button:active {
+                transform: scale(0.95);
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .animate-fadeIn {
+                animation: fadeIn 0.3s ease-out;
+            }
+        </style>
+    </head>
+
+<body class="bg-surface font-body min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <!-- Abstract Background -->
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-primary/20 blur-3xl rounded-full opacity-20"></div>
+    <div class="absolute bottom-10 -right-20 w-80 h-80 bg-blue-300/30 blur-3xl rounded-full opacity-30"></div>
+
+    <div class="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-xl p-10 border border-slate-100">
+        <div class="flex flex-col items-center mb-8">
+            <img src="{% static 'assets/logo4.jpeg' %}" alt="SSC Logo"
+                class="w-32 h-32 rounded-xl object-contain mb-4 shadow-sm">
+            <h1 class="text-3xl font-bold font-montserrat text-slate-900 tracking-tight">Welcome</h1>
+            <p class="text-on-surface-variant text-sm mt-2">Log in to your account</p>
+        </div>
+
+        <!-- Login Section -->
+        <div id="loginSection" class="block animate-fadeIn">
+            {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                <div class="p-3 rounded-xl text-sm font-medium {% if message.tags == 'error' %}bg-rose-50 text-rose-600 border border-rose-100{% else %}bg-teal-50 text-teal-600 border border-teal-100{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form class="space-y-6" method="POST">
+                {% csrf_token %}
+                <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-700 font-poppins">Email Address</label>
+                    <input type="email" name="email" required
+                        class="w-full bg-slate-50 border-none rounded-xl py-4 px-5 text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all border border-slate-200"
+                        placeholder="yourname@gmail.com" />
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-sm font-semibold text-slate-700 font-poppins">Password</label>
+                        <a href="#" class="text-xs text-primary font-semibold hover:underline">Forgot password?</a>
+                    </div>
+                    <input type="password" name="password" required
+                        class="w-full bg-slate-50 border-none rounded-xl py-4 px-5 text-slate-900 focus:ring-2 focus:ring-primary/20 transition-all border border-slate-200"
+                        placeholder="••••••••" />
+                </div>
+                <button type="submit"
+                    class="block w-full py-4 bg-primary text-white text-center font-bold rounded-xl shadow-lg hover:shadow-primary/30 font-poppins transition-all active:scale-[0.98]">
+                    Sign In
+                </button>
+                <div class="mt-8 text-center border-t border-slate-100 pt-8">
+                    <p class="text-sm text-slate-500 font-body">Don't have an account?</p>
+                    <a href="{% url 'signup' %}" class="inline-block mt-3 px-8 py-3 bg-slate-50 text-primary border border-slate-200 rounded-xl font-bold text-sm hover:bg-primary hover:text-white hover:border-primary transition-all">Sign Up</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>

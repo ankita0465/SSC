@@ -1,0 +1,215 @@
+{% load static %}
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{{ event.title }}</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:wght@700;800&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;family=Poppins:wght@600&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#264dd9",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fe",
+                        "on-surface": "#181c20",
+                        "on-surface-variant": "#444655",
+                        "background": "#f7f9fe",
+                        "on-background": "#181c20",
+                    },
+                    fontFamily: {
+                        "body": ["Inter"],
+                        "montserrat": ["Montserrat"],
+                        "poppins": ["Poppins"],
+                        "opensans": ["Open Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background font-body">
+    <!-- SideNavBar -->
+    <aside class="h-screen w-64 fixed left-0 top-0 flex flex-col bg-white border-r border-slate-200 z-50">
+        <div class="flex flex-col h-full py-6 px-4">
+            <div class="flex items-center gap-3 px-2 mb-10">
+                <img alt="SSC Logo" class="w-24 h-24 rounded-lg object-contain" src="{% static 'assets/logo4.jpeg' %}" />
+            </div>
+            <nav class="flex-1 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'home' %}">
+                    <span class="material-symbols-outlined">home</span>
+                    <span class="font-poppins text-sm">Home</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-blue-600 font-semibold border-r-4 border-blue-600 bg-blue-50 transition-all duration-200" href="{% url 'event_list' %}">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+                    <span class="font-poppins text-sm">Events</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'post_event' %}">
+                    <span class="material-symbols-outlined">add_box</span>
+                    <span class="font-poppins text-sm">Post Event</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'dashboard' %}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span class="font-poppins text-sm">Dashboard</span>
+                </a>
+            </nav>
+            <div class="mt-8 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'login' %}">
+                    <span class="material-symbols-outlined">login</span>
+                    <span class="font-poppins text-sm">Login</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors duration-200" href="{% url 'logout' %}">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-poppins text-sm">Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Header -->
+    <header class="fixed top-0 right-0 lg:left-64 left-0 h-16 z-40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-md flex items-center justify-center px-8 shadow-sm dark:shadow-none transition-all duration-300">
+        <button id="mobileMenuBtn" class="lg:hidden p-2 -ml-2 text-slate-600 absolute left-4" onclick="document.querySelector('aside').classList.toggle('hidden'); document.querySelector('aside').classList.toggle('flex');">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <span class="text-xl font-bold font-montserrat tracking-tight text-slate-900">Smart Student Community</span>
+        <div class="absolute right-8 flex items-center space-x-2">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTyfaDwDDMAlk_zIRGOglVNKa_LFBAhfSGl6IP-TH4sNIFiynMlFz3nr3lRsekGetAu_WykZORRDDwt39LD1z4kIRKflxy4NjgzfVFXYlmwV7SebwIgP_caw1pQijS4MIVIzZugCuvujG0Eu889tWF26W27Q6RurlTzJ6DfA3Ws6Ml8k03raNtMPloZ3oJjmjOAy1LUf2f3cCEaJGFn9HQSoUHqJLETkcs7MnP1ag6zewHZ-MeB6PRuLaW_0ICmaJ94i6RBIAgi40t" class="w-8 h-8 rounded-full border border-slate-200 shadow-sm object-cover" alt="Avatar" />
+            <span class="text-sm font-bold text-slate-900 hidden md:block">
+            {{ student.name|truncatewords:1|cut:"..." }}
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="lg:ml-64 ml-0 pt-20 min-h-screen bg-surface">
+        <div class="max-w-4xl mx-auto px-8 py-10">
+            {% if messages %}
+            <div class="mb-8 space-y-2">
+                {% for message in messages %}
+                <div class="p-4 rounded-xl text-sm font-medium {% if message.tags == 'error' %}bg-rose-50 text-rose-600 border border-rose-100{% else %}bg-teal-50 text-teal-600 border border-teal-100{% endif %} flex items-center gap-2">
+                    <span class="material-symbols-outlined">{% if message.tags == 'error' %}error{% else %}check_circle{% endif %}</span>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+                {% with title=event.title|lower %}
+                <img src="{% if 'nextgen hackathon' in title %}/media/event_images/nextgen_hackathon.jpg
+                          {% elif 'research symposium' in title %}/media/event_images/research_symposium.jpg
+                          {% elif 'ai seminar' in title %}/media/event_images/ai_seminar.png
+                          {% elif 'ai workshop' in title %}/media/event_images/ai_workshop.jpg
+                          {% elif 'hackathon' in title %}/media/event_images/hackathon.jpg
+                          {% elif 'dance fest' in title %}/media/event_images/dance_fest.jpg
+                          {% elif 'cricket' in title %}/media/event_images/cricket_tournament.jpg
+                          {% elif 'entrepreneur' in title %}/media/event_images/entrepreneur_talk.png
+                          {% elif 'placement' in title %}/media/event_images/placement_training.jpg
+                          {% elif 'literary' in title %}/media/event_images/literary_debate.jpg
+                          {% elif 'career' in title %}/media/event_images/career_seminar.jpg
+                          {% elif 'coding contest' in title %}/media/event_images/coding_contest.jpg
+                          {% elif 'photography' in title %}/media/event_images/photography_contest.jpg
+                          {% elif 'music' in title %}/media/event_images/music_night.jpg
+                          {% elif 'robotics' in title %}/media/event_images/robotics_expo.jpg
+                          {% elif 'art' in title %}/media/event_images/art_exhibition.jpg
+                          {% elif 'volunteer' in title %}/media/event_images/volunteer_drive.jpg
+                          {% elif 'dance comp' in title %}/media/event_images/dance_competition.jpg
+                          {% elif event.image %}{{ event.image.url }}
+                          {% else %}/media/event_images/default_new.png{% endif %}" 
+                     alt="{{ event.title }}" 
+                     class="w-full h-80 object-cover">
+                {% endwith %}
+                <div class="p-10">
+                    <a href="{% url 'event_list' %}" class="inline-flex items-center gap-2 text-slate-500 hover:text-primary mb-6 font-semibold transition-colors">
+                        <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Events
+                    </a>
+                    
+                    <h1 class="text-4xl md:text-5xl font-bold font-montserrat text-slate-900 mb-6">{{ event.title }}</h1>
+                    
+                    <div class="flex flex-wrap gap-8 text-sm font-semibold text-slate-600 mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <span class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">calendar_today</span> 
+                            <span class="text-base">{{ event.start_date|date:"F j, Y"|default:"TBA" }}</span>
+                        </span>
+                        <span class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">location_on</span> 
+                            <span class="text-base">{{ event.city|default:"Location TBA" }}</span>
+                        </span>
+                        <span class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">category</span> 
+                            <span class="text-base uppercase tracking-wider">{{ event.category|default:"General" }}</span>
+                        </span>
+                    </div>
+
+                    <p class="text-slate-700 text-lg mb-10 leading-relaxed font-body">
+                        Join us for {{ event.title }} in {{ event.city|default:"Location TBA" }}! This is an exciting opportunity to network, learn, and grow. More specific details about the event timeline and speakers will be announced closer to the event date.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 border-t border-slate-100 pt-8">
+                        <a href="{% url 'event_registration' event.event_id %}"
+                            class="flex-1 py-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:shadow-primary/30 active:scale-95 transition-all text-center text-lg">
+                            Register Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="mt-12 bg-white rounded-3xl shadow-lg border border-slate-100 p-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                    <h2 class="text-2xl font-bold font-montserrat text-slate-900 flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary text-3xl">rate_review</span>
+                        Student Feedback
+                    </h2>
+                    {% if is_registered %}
+                    <a href="{% url 'event_feedback' event.event_id %}" class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 transition-all text-sm whitespace-nowrap">
+                        <span class="material-symbols-outlined text-sm mr-2">edit_square</span> Leave a Review
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-8">
+                    {% for f in feedbacks %}
+                    <div class="flex gap-5 pb-8 border-b border-slate-50 last:border-0 last:pb-0">
+                        <div class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
+                            <span class="text-primary font-bold text-lg">{{ f.student.name|slice:":1"|upper }}</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-bold text-slate-900">{{ f.student.name }}</h4>
+                                <div class="flex text-amber-400">
+                                    {% for i in "12345" %}
+                                        <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' {% if forloop.counter <= f.rating %}1{% else %}0{% endif %};">star</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <p class="text-slate-600 leading-relaxed">{{ f.comments }}</p>
+                            <p class="text-[10px] font-bold text-slate-400 mt-3 uppercase tracking-widest">{{ f.created_at|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                        <span class="material-symbols-outlined text-slate-300 text-5xl mb-4">chat_bubble</span>
+                        <p class="text-slate-500 font-medium">No feedback yet. Be the first to share your experience!</p>
+                        {% if is_registered %}
+                        <a href="{% url 'event_feedback' event.event_id %}" class="inline-block mt-4 text-primary font-bold hover:underline">Leave Feedback</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
