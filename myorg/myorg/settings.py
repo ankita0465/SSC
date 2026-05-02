@@ -143,11 +143,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import dj_database_url
 
-import dj_database_url
-
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3'
     )
 }
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
