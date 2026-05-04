@@ -7,3 +7,4 @@ dj-database-url
 drf-yasg
 cloudinary
 django-cloudinary-storage
+Pillow
