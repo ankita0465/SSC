@@ -123,7 +123,8 @@
             {% endif %}
             <div class="bg-white rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
                 {% with title=event.title|lower %}
-                <img src="{% if 'nextgen hackathon' in title %}/media/event_images/nextgen_hackathon.jpg
+                <img src="{% if event.image %}{{ event.image.url }}
+                          {% elif 'nextgen hackathon' in title %}/media/event_images/nextgen_hackathon.jpg
                           {% elif 'research symposium' in title %}/media/event_images/research_symposium.jpg
                           {% elif 'ai seminar' in title %}/media/event_images/ai_seminar.png
                           {% elif 'ai workshop' in title %}/media/event_images/ai_workshop.jpg
@@ -141,7 +142,6 @@
                           {% elif 'art' in title %}/media/event_images/art_exhibition.jpg
                           {% elif 'volunteer' in title %}/media/event_images/volunteer_drive.jpg
                           {% elif 'dance comp' in title %}/media/event_images/dance_competition.jpg
-                          {% elif event.image %}{{ event.image.url }}
                           {% else %}/media/event_images/default_new.png{% endif %}" alt="{{ event.title }}"
                     class="w-full h-80 object-cover">
                 {% endwith %}
