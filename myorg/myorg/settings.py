@@ -155,6 +155,7 @@ if IS_RENDER or CLOUDINARY_CLOUD_NAME or CLOUDINARY_URL:
         },
     }
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 else:
     STORAGES = {
         "default": {
@@ -165,6 +166,7 @@ else:
         },
     }
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
