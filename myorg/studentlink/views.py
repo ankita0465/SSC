@@ -135,16 +135,19 @@ def post_event_view(request):
             except (ValueError, TypeError):
                 start_date = None
 
+        print("FILES:", request.FILES)
         image = request.FILES.get("image")
 
-        Event.objects.create(
+        event = Event(
             title=title,
             category=category,
             city=city,
             start_date=start_date,
-            status="Upcoming",
-            image=image
+            status="Upcoming"
         )
+        if image:
+            event.image = image
+        event.save()
         return redirect("event_list")
         
     return render(request, "post-event.html", {"student": get_student_from_session(request)})
