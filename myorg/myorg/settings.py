@@ -141,6 +141,9 @@ if CLOUDINARY_CLOUD_NAME:
         'SECURE': True,
     }
 
+import cloudinary
+cloudinary.config(secure=True)
+
 # Storage configuration (Django 5+/6+ format)
 if IS_RENDER or CLOUDINARY_CLOUD_NAME or CLOUDINARY_URL:
     STORAGES = {
